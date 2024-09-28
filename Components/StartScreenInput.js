@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text, TextInput } from 'react-native';
 import { useState } from 'react';
+import Checkbox from 'expo-checkbox';
 
 export default function StartScreenInput() {
     const [name, setName] = useState('');
@@ -8,40 +9,48 @@ export default function StartScreenInput() {
     const [phoneNum, setPhoneNum] = useState('');
     const [notRobot, setNotRobot] = useState(false);
 
-  return (
-    <View style={styles.container}>
-        {/* name input field */}
-      <Text style={styles.text}>Name:</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={setName}
-        value={name}
-        textAlign='center'
-      />
-      {/* email address input field */}
-      <Text style={styles.text}>Email:</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={setEmailAddr}
-        value={emailAddr}
-        textAlign='center'
-      />
-        {/* phone number input field */}
-        <Text style={styles.text}>Phone Number:</Text>
-        <TextInput
-        style={styles.input}
-        onChangeText={setPhoneNum}
-        value={phoneNum}
-        textAlign='center'
-        />
-        {/* checkbox of checking robot*/}
-      <Text style={styles.text}>I am not a robot</Text>
-      {/* <CheckBox
-        value={notRobot}
-        onValueChange={setNotRobot}
-      /> */}
-    </View>
-  )
+    return (
+        <View style={styles.container}>
+            {/* name input field */}
+            <Text style={styles.text}>Name:</Text>
+            <TextInput
+                style={styles.input}
+                onChangeText={setName}
+                value={name}
+                textAlign='center'
+            />
+            {/* email address input field */}
+            <Text style={styles.text}>Email:</Text>
+            <TextInput
+                style={styles.input}
+                onChangeText={setEmailAddr}
+                value={emailAddr}
+                textAlign='center'
+            />
+            {/* phone number input field */}
+            <Text style={styles.text}>Phone Number:</Text>
+            <TextInput
+                style={styles.input}
+                onChangeText={setPhoneNum}
+                value={phoneNum}
+                textAlign='center'
+            />
+            {/* checkbox of checking robot*/}
+            <View style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                margin: 5,
+                paddingTop: 15,
+            }}>
+                <Checkbox
+                    value={notRobot}
+                    onValueChange={setNotRobot}
+                    color={notRobot ? '#1e90ff' : undefined}
+                />
+                <Text style={styles.text}>I am not a robot</Text>
+            </View>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -66,4 +75,4 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'purple',
     },
-    });
+});
