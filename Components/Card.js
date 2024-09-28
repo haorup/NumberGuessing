@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     width: '80%',
     height: '90%',
     backgroundColor: '#d3d3d3', // lightgrey
-    padding: 20,
+    padding: 10,
     margin: 20,
     borderRadius: 10,
     shadowColor: 'black',
