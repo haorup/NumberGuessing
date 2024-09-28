@@ -43,11 +43,20 @@ export default function StartScreenInput() {
                 paddingTop: 15,
             }}>
                 <Checkbox
+                    style={{
+                        width: 15,
+                        height: 15,
+                    }}
                     value={notRobot}
                     onValueChange={setNotRobot}
                     color={notRobot ? '#1e90ff' : undefined}
                 />
-                <Text style={styles.text}>I am not a robot</Text>
+                <Text style={{
+                    color: 'purple',
+                    fontSize: 15,
+                    paddingLeft: 5,
+                    textAlign: 'left',
+                }}>I am not a robot</Text>
             </View>
         </View>
     )
