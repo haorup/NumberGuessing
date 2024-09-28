@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import Header from '../Components/Header';
+import Card from '../Components/Card';
 
 
 export default function Start() {
@@ -10,10 +11,12 @@ export default function Start() {
       <Header />
       </View>
       <View style={styles.cardView}>
+      <Card >
         <Text>Card View</Text>
+        </Card>
         </View>
       <View style={styles.bottomView}>
-        <Text>Bottom View</Text>
+        
       </View>
     </View>
   )
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   bottomView: {
-    flex: 2,
+    flex: 1.5,
     justifyContent: 'center',
     alignItems: 'center',
   },

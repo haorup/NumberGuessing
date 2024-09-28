@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     text: {
         color: 'purple',
         fontSize: 20,
+        fontWeight: 'bold',
         padding: 20,
         margin: 20,
         marginTop: 50,
