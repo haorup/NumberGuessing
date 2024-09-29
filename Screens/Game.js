@@ -14,6 +14,8 @@ export default function Game({ restartGame }) {
     const [targetNumber, setTargetNumber] = useState(null);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
     const [numberGuessed, setNumberGuessed] = useState(null);
+    const [hintMessage, setHintMessage] = useState('');
+    const [isHintUsed, setIsHintUsed] = useState(false);
     const [timeLeft, setTimeLeft] = useState(60);
     const [attempts, setAttempts] = useState(4);
 
@@ -39,6 +41,19 @@ export default function Game({ restartGame }) {
         console.log('Target number: ' + targetNumber);
     }
 
+    function handleHintPressed() {
+        if (isHintUsed) {
+            return;
+        }
+        setIsHintUsed(true);
+        let hint = targetNumber >= 50;
+        hint ? setHintMessage('The number is between 50 and 100') 
+        : setHintMessage('The number is between 1 and 50');
+    }
+
+    console.log('Base number: ' + baseNumber);
+    console.log('Target number: ' + targetNumber);
+    console.log('number guessed: ' + numberGuessed);
     useEffect(() => {
         generateBaseNumber();
     }, [])
@@ -78,9 +93,19 @@ export default function Game({ restartGame }) {
                                 textAlign='center'
                                 value={numberGuessed}
                                 onChangeText={setNumberGuessed} />
+                            <View>
+                                <Text>{hintMessage}</Text>
+                                <Text>Attempts left: {attempts} {`\n`}
+                                    Time left: {timeLeft}s 
+                                </Text>
+                            </View>
                             <View style={styles.buttonSection}>
-                                <Button title='Use a Hint' onPress={() => { }} />
-                                <Button title='Submit guess' onPress={() => { }} />
+                                <Button title='Use a Hint' 
+                                    disabled={isHintUsed}
+                                    color={isHintUsed ? 'white' : 'blue'}
+                                    onPress={() => {handleHintPressed() }} />
+                                <Button title='Submit guess'
+                                 color='blue' onPress={() => { }} />
 
                             </View>
                         </Card>}
