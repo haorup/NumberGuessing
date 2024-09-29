@@ -1,15 +1,45 @@
-import React from 'react'
-import LinearGradientBackground from '../Components/LinearGradientBackground'
-import { View, Button, Text, StyleSheet, Modal } from 'react-native'
-import Card from '../Components/Card'
+import React, { useEffect } from 'react';
+import LinearGradientBackground from '../Components/LinearGradientBackground';
+import { View, Button, Text, StyleSheet, Modal } from 'react-native';
+import Card from '../Components/Card';
+import { useState } from 'react';
+
 
 export default function Game({restartGame}) {
+
+    const [gameStatus, setGameStatus] = useState('notYet');
+    const [baseNumber, setBaseNumber] = useState(null);
+    const [targetNumber, setTargetNumber] = useState(null);
+    const [isTimerRunning, setIsTimerRunning] = useState(false);
+    const [numberGuessed, setNumberGuessed] = useState(null);
+    const [timeLeft, setTimeLeft] = useState(60);
+    const [attempts, setAttempts] = useState(4);
 
     function handleRestart() {
         console.log('Restarted')
         restartGame()
-
     }
+
+    function generateBaseNumber() {
+        setBaseNumber(Math.floor(Math.random() * 9) + 1);
+    }
+
+    function generateTargetNumber() {
+        let multiplier = Math.floor(Math.random() * 11) + 1;
+        setTargetNumber(baseNumber * multiplier);
+    }
+
+    function startGame() {
+        generateTargetNumber();
+        setGameStatus('started');
+        setIsTimerRunning(true);
+        console.log('Game started');
+    }
+
+    useEffect(() => {
+        generateBaseNumber();
+    }, [])
+
     return (
         <Modal visible={true}
             animationType='slide'
@@ -21,18 +51,32 @@ export default function Game({restartGame}) {
                             <Button title='Restart' onPress={() => { handleRestart()}} />
                         </View>
 
-                        <Card>
+                        {/* starting game card */}
+                        {gameStatus === 'notYet' && <Card>
                             <View style={styles.text}>
                                 <Text>Guess a number between 1 and 100
-                                    that is multiply of 9 {`\n`}
+                                    that is multiply of {baseNumber} {`\n`}
                                     Time limit: 60 seconds {`\n`}
                                     Maximum attempts: 4 {`\n`}
                                 </Text>
                             </View>
                             <View style={styles.buttonSection}>
-                                <Button title='Start' onPress={() => { console.log() }} />
+                                <Button title='Start' onPress={() => { startGame()}} />
                             </View>
-                        </Card>
+                        </Card>}
+
+                        {/* playing game card */}
+                        {gameStatus === 'started' && <Card>
+                            <View style={styles.text}>
+                                <Text>Guess a number between 1 and 100
+                                that is multiply of {baseNumber}</Text>
+                            </View>
+                            <View style={styles.buttonSection}>
+                                <Button title='Use a Hint' onPress={() => {}} />
+                                <Button title='Submit guess' onPress={() => {}} />
+
+                            </View>
+                        </Card>}
                     </View>
                 </View>
             </LinearGradientBackground>
