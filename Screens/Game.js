@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import LinearGradientBackground from '../Components/LinearGradientBackground';
-import { View, Button, Text, StyleSheet, Modal, TextInput } from 'react-native';
+import { View, Button, Text, StyleSheet, Modal, TextInput, Alert } from 'react-native';
 import Card from '../Components/Card';
 import { useState } from 'react';
 
 
 export default function Game({ restartGame }) {
-
 
 
     const [gameStatus, setGameStatus] = useState('notYet');
@@ -51,6 +50,16 @@ export default function Game({ restartGame }) {
         : setHintMessage('The number is between 1 and 50');
     }
 
+    function checkIsGuessValid() {
+        if (isNaN(numberGuessed)) {
+            Alert.alert('Invalid input!', 'Please enter a number');
+        }
+        if (Number(numberGuessed) < 1 || Number(numberGuessed) > 100) {
+            Alert.alert('Invalid input!', 'Please enter a number between 1 and 100');
+        }
+    }
+    
+
     console.log('Base number: ' + baseNumber);
     console.log('Target number: ' + targetNumber);
     console.log('number guessed: ' + numberGuessed);
@@ -93,6 +102,7 @@ export default function Game({ restartGame }) {
                                 textAlign='center'
                                 value={numberGuessed}
                                 onChangeText={setNumberGuessed} />
+                                {numberGuessed && checkIsGuessValid()}
                             <View>
                                 <Text>{hintMessage}</Text>
                                 <Text>Attempts left: {attempts} {`\n`}
