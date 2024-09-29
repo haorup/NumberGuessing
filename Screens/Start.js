@@ -9,6 +9,7 @@ import StartCheckbox from '../Components/StartCheckbox';
 
 export default function Start({
   showConfirm,
+  passingUserData,
 }) {
   const [userInfo, setUserInfo] = useState({'name': '', 'email': '', 'phone': ''});
   const [notRobot, setNotRobot] = useState(false);
@@ -69,6 +70,7 @@ export default function Start({
       || !userInfo.phone) {
       Alert.alert("Invalid Input", "Please fill in all the fields")
     } else {
+      passingUserData(userInfo);
       showConfirm();
     }
   }
