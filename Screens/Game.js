@@ -55,8 +55,8 @@ export default function Game({ restartGame }) {
             : setHintMessage('The number is between 1 and 50');
     }
 
-
     function handleSubmitGuess() {
+        // check if the input is valid
         if (isNaN(numberGuessed)) {
             Alert.alert('Invalid input!', 'Please enter a number');
             setAttempts(attempts - 1);
@@ -68,15 +68,14 @@ export default function Game({ restartGame }) {
             setAttempts(attempts - 1);
             return;
         }
-
         if (Number(numberGuessed) % baseNumber !== 0) {
             Alert.alert('Invalid input!',
                 'Please enter a number that is multiply of ' + baseNumber);
             setAttempts(attempts - 1);
             return;
         }
-
-        if (Number(numberGuessed) === targetNumber) { // guessed correctly
+        // check if the guess is correct
+        if (Number(numberGuessed) === targetNumber) { 
             setGameStatus('finished');
             setGameResult('win');
         }
@@ -192,11 +191,18 @@ export default function Game({ restartGame }) {
 
                         {/* game over card */}
                         {gameStatus === 'finished' && <Card>
-                            <View style={styles.text}>
-                                <Text>{gameResult === 'win' ?
-                                    'Congratulations! You won!'
-                                    : 'Game over! You lost!'}</Text>
-                            </View>
+                            {gameResult === 'win'?
+                            (<View style={styles.text}>
+                                <Text>You guessed correct! {'\n'}
+                                    Attempts used: {4 - attempts} {'\n'}
+                                </Text>
+                                <Image source={{uri:`https://picsum.photos/id/${targetNumber}/100/100`}}
+                                style={styles.imageStyle}
+                                alt='winner' />
+                            </View>)
+                            : (<View style={styles.text}>
+                                <Text>'You lost!'</Text>
+                            </View>)}
                             <View style={styles.buttonSection}>
                                 <Button title='NewGame'
                                     onPress={() => { }} />
@@ -237,5 +243,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: 'purple',
-    }
+    },
+    imageStyle: {
+        width: 50,
+        height: 50,
+    },
 })
