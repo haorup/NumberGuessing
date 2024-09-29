@@ -24,7 +24,8 @@ export default function App() {
       <Start showConfirm={handleConfirm}
       passingUserData={handleUserData}/>
       <Confirm ifConfirmVisible={confirmVisibility}
-                userInput={userData} />
+                userInput={userData}
+                goBackToStart={handleConfirm} />
     </View>
   );
 }

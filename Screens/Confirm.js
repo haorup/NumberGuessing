@@ -6,6 +6,7 @@ import Card from '../Components/Card';
 export default function Confirm({
     ifConfirmVisible,
     userInput,
+    goBackToStart,
 }) {
     return (
         <Modal visible={ifConfirmVisible}
@@ -25,7 +26,7 @@ export default function Confirm({
                         </Text>
                         </View>
                         <View style={styles.buttonSection}>
-                        <Button title='Go Back' color='red' onPress={() => console.log('Confirm')} />
+                        <Button title='Go Back' color='red' onPress={() => {goBackToStart()}} />
                         <Button title='Continue' onPress={() => console.log('Edit')} />
                         </View>
                     </Card>
