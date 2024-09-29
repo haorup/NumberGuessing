@@ -3,8 +3,13 @@ import LinearGradientBackground from '../Components/LinearGradientBackground'
 import { View, Button, Text, StyleSheet, Modal } from 'react-native'
 import Card from '../Components/Card'
 
+export default function Game({restartGame}) {
 
-export default function Game() {
+    function handleRestart() {
+        console.log('Restarted')
+        restartGame()
+
+    }
     return (
         <Modal visible={true}
             animationType='slide'
@@ -13,7 +18,7 @@ export default function Game() {
                 <View style={styles.container}>
                     <View style={styles.screenContainer}>
                         <View style={styles.restartButtonSection}>
-                            <Button title='Restart' onPress={() => { console.log() }} />
+                            <Button title='Restart' onPress={() => { handleRestart()}} />
                         </View>
 
                         <Card>

@@ -22,7 +22,7 @@ export default function Confirm({
             <View style={styles.container}>
             <LinearGradientBackground colors={['rgba(0, 255, 255, 255)', 'rgba(0, 0, 0, 0)']}>
                 <View style={styles.modalView}>
-                    <Card>
+                    <Card flex={true}>
                         <View style={{flex: 3}}>
                         <Text>Hello {userInput && userInput.name}</Text>
                         <Text>Here is the information you entered:</Text>

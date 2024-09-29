@@ -20,19 +20,24 @@ export default function App() {
   }
   // callback function to pass the game stage to the Game screen
   function enterGameStage() {
-    setGameStage((prevStage) => prevStage+1);
+    setGameStage((prevStage) => prevStage + 1);
+  }
+
+  function restartGame() {
+    setGameStage(0);
   }
 
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Start showConfirm={handleConfirm}
-      passingUserData={handleUserData}/>
-      <Confirm ifConfirmVisible={confirmVisibility}
-                userInput={userData}
-                goBackToStart={handleConfirm}
-                gameHandler={enterGameStage} />
-      {gameStage === 1 && <Game/>}
+      {gameStage < 1 && <Start showConfirm={handleConfirm}
+        passingUserData={handleUserData} />}
+
+      {gameStage < 1 && <Confirm ifConfirmVisible={confirmVisibility}
+        userInput={userData}
+        goBackToStart={handleConfirm}
+        gameHandler={enterGameStage} />}
+      {gameStage > 0 && <Game restartGame={restartGame}/>}
     </View>
   );
 }
