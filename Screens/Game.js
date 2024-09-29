@@ -58,6 +58,11 @@ export default function Game({ restartGame }) {
     }
 
     function handleSubmitGuess() {
+        // stop the timer when the attempts are used up
+        if (attempts === 0) {
+            setIsTimerRunning(false);
+            setShowGuessResult(true);
+        }
         // check if the input is valid
         if (isNaN(numberGuessed)) {
             Alert.alert('Invalid input!', 'Please enter a number');
@@ -77,28 +82,30 @@ export default function Game({ restartGame }) {
             return;
         }
         // check if the guess is correct
-        if (Number(numberGuessed) === targetNumber) { 
+        if (Number(numberGuessed) === targetNumber) {
             setGameStatus('finished');
             setGameResult('win');
         }
         setAttempts(attempts - 1);
-        // stop the timer when the attempts are used up
-        if (attempts === 0) {
-            setIsTimerRunning(false);
-        }
         setShowGuessResult(true);
     }
 
     function handleTryAgain() {
-        if (attempts === 0 // no attempts left
-        ) {
-            setGameOverMessage('You are out of attempts!');
+        if (attempts === 0) {
+            setIsTimerRunning(false);
             setGameStatus('finished');
+            setGameOverMessage('You are out of attempts!');
             setGameResult('lose');
-
+            return;
         }
         setShowGuessResult(false);
         setNumberGuessed(null);
+    }
+
+    function handleEndGame() {
+        setGameStatus('finished');
+        setGameResult('lose');
+        setGameOverMessage('You ended the game!');
     }
 
     function handleNewGame() {
@@ -124,6 +131,12 @@ export default function Game({ restartGame }) {
 
     // countdown timer
     useEffect(() => {
+        if (attempts < 0) {
+            setGameStatus('finished');
+            setGameResult('lose');
+            setGameOverMessage('You are out of attempts!');
+            return;
+        }
         if (!isTimerRunning) {
             return;
         }
@@ -137,7 +150,7 @@ export default function Game({ restartGame }) {
             setTimeLeft(prevtimeLeft => prevtimeLeft - 1);
         }, 1000);
         return () => clearInterval(intervalData);
-    }, [timeLeft, isTimerRunning]);
+    }, [timeLeft, isTimerRunning, attempts]);
 
     return (
         <Modal visible={true}
@@ -208,33 +221,32 @@ export default function Game({ restartGame }) {
                                 <Button title='End the Game'
                                     color='blue'
                                     onPress={() => {
-                                        setGameStatus('finished');
-                                        setGameResult('lose')
+                                        handleEndGame()
                                     }} />
                             </View>
                         </Card>}
 
                         {/* game over card */}
                         {gameStatus === 'finished' && <Card>
-                            {gameResult === 'win'?
-                            (<View style={styles.text}> 
-                                <Text>You guessed correct! {'\n'}
-                                    Attempts used: {4 - attempts} {'\n'}
-                                </Text>
-                                <Image source={{uri:`https://picsum.photos/id/${targetNumber}/100/100`}}
-                                style={styles.imageStyle}
-                                alt='winner' />
-                            </View>)
-                            : (<View style={styles.text}>
-                                <Text>The game is over!</Text>
-                                <Image source={require('../assets/sadSmile.jpeg')}
-                                style={styles.imageStyle}
-                                alt='loser' />
-                                <Text>{gameOverMessage}</Text>
-                            </View>)}
+                            {gameResult === 'win' ?
+                                (<View style={styles.text}>
+                                    <Text>You guessed correct! {'\n'}
+                                        Attempts used: {4 - attempts} {'\n'}
+                                    </Text>
+                                    <Image source={{ uri: `https://picsum.photos/id/${targetNumber}/100/100` }}
+                                        style={styles.imageStyle}
+                                        alt='winner' />
+                                </View>)
+                                : (<View style={styles.text}>
+                                    <Text>The game is over!</Text>
+                                    <Image source={require('../assets/sadSmile.jpeg')}
+                                        style={styles.imageStyle}
+                                        alt='loser' />
+                                    <Text>{gameOverMessage}</Text>
+                                </View>)}
                             <View style={styles.buttonSection}>
                                 <Button title='NewGame'
-                                    onPress={() => {handleNewGame()}} />
+                                    onPress={() => { handleNewGame() }} />
                             </View>
                         </Card>}
                     </View>

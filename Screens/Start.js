@@ -62,8 +62,8 @@ export default function Start({
   function register() {
     // check if the input values are valid
     if (checkName() !== null
-      && checkEmail() !== null
-      && checkPhone() !== null) {
+      || checkEmail() !== null
+      || checkPhone() !== null) {
       Alert.alert("Invalid Input", "Check the input values")
     } else if (!userInfo.name // check if the input fields are empty
       || !userInfo.email
