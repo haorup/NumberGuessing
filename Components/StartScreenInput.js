@@ -8,6 +8,47 @@ export default function StartScreenInput() {
     const [emailAddr, setEmailAddr] = useState('');
     const [phoneNum, setPhoneNum] = useState('');
     const [notRobot, setNotRobot] = useState(false);
+    const [isFocus, setIsFocus] = useState(false);
+    const nameError = 'Please enter a valid name';
+    const emailError = 'Please enter a valid email address';
+    const phoneError = 'Please enter a valid phone number';
+
+    function checkName() {
+        const regex = /\d/;
+        // check the length of the name when the input field is focused
+        if (isFocus && name.length < 2) {
+            return nameError;
+        }
+        // check if the name contains any number
+        if (regex.test(name)) {
+            return nameError;
+        }
+        return null;
+    }
+
+    function checkEmail() {
+        const regex = /\S+@\S+\.\S+/;
+        // check the email address when the input field is focused
+        if (isFocus && !regex.test(emailAddr)) {
+            return emailError;
+        }
+        return null;
+    }
+
+    function checkPhone() {
+        const regex = /^\d{10}$/;
+        // check the phone number when the input field is focused
+        if (isFocus && !regex.test(phoneNum)) {
+            return phoneError;
+        }
+        if (phoneNum.lastIndexOf('0') === 9) {
+            return phoneError;
+        }
+        if (phoneNum.lastIndexOf('1') === 9) {
+            return phoneError;
+        }
+        return null;
+    }
 
     return (
         <View style={styles.container}>
@@ -17,24 +58,33 @@ export default function StartScreenInput() {
                 style={styles.input}
                 onChangeText={setName}
                 value={name}
+                onFocus={() => setIsFocus(true)}
                 textAlign='center'
             />
+            <Text>{checkName()}</Text>
+
             {/* email address input field */}
             <Text style={styles.text}>Email:</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={setEmailAddr}
                 value={emailAddr}
+                onFocus={() => setIsFocus(true)}
                 textAlign='center'
             />
+            <Text>{checkEmail()}</Text>
+
             {/* phone number input field */}
             <Text style={styles.text}>Phone Number:</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={setPhoneNum}
                 value={phoneNum}
+                onFocus={() => setIsFocus(true)}
                 textAlign='center'
             />
+            <Text>{checkPhone()}</Text>
+            
             {/* checkbox of checking robot*/}
             <View style={{
                 flexDirection: 'row',
