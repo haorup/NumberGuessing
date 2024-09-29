@@ -97,6 +97,7 @@ export default function Start({
         <View style={styles.cardView}>
           <Card >
             {/* name input */}
+            <View style={{flex: 4}}>
             <Text style={styles.text}>Name:</Text>
             <StartScreenInput
             inputInfo={userInfo.name}
@@ -122,6 +123,7 @@ export default function Start({
             passingInfo={handleInputData}
             />
             <Text style={styles.reminder}>{checkPhone()}</Text>
+            </View>
 
             {/* checkbox */}
             <StartCheckbox
@@ -131,6 +133,7 @@ export default function Start({
 
             {/* Confirm and Cancel buttons */}
             <View style={{
+              flex: 1,
               flexDirection: 'row',
               justifyContent: 'center',
               margin: 5,

@@ -26,7 +26,6 @@ export default function StartCheckbox({
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: '5%',
     flexDirection: 'row',
     alignItems: 'center',
     margin: 5,

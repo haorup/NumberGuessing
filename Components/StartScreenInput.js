@@ -25,6 +25,7 @@ export default function StartScreenInput({
 
 const styles = StyleSheet.create({
     input: {
+        flex: 1,
         width: '90%',
         borderColor: 'purple',
         padding: 5,
