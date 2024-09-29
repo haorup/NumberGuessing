@@ -10,15 +10,17 @@ export default function Start() {
     <View style={styles.container}>
       {/* welcome message header in top view */}
       <View style={styles.topView}>
-      <Header />
+        <Header />
       </View>
-      {/* card view in the middle 
+
+      {/* card view in the middle
       all textinputs and checkbox are put here*/}
       <View style={styles.cardView}>
-      <Card >
-        <StartScreenInput/>
+        <Card >
+          <StartScreenInput />
         </Card>
-        </View>
+      </View>
+
       {/* bottom view are set empty */}
       <View style={styles.bottomView}>
       </View>
@@ -49,6 +51,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  
-});
 
+});

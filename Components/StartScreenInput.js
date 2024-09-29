@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TextInput } from 'react-native';
+import { View, StyleSheet, Text, TextInput, Button, Alert } from 'react-native';
 import { useState } from 'react';
 import Checkbox from 'expo-checkbox';
 
@@ -64,7 +64,7 @@ export default function StartScreenInput() {
             <Text>{checkName()}</Text>
 
             {/* email address input field */}
-            <Text style={styles.text}>Email:</Text>
+            <Text style={styles.text}>Email address:</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={setEmailAddr}
@@ -84,7 +84,7 @@ export default function StartScreenInput() {
                 textAlign='center'
             />
             <Text>{checkPhone()}</Text>
-            
+
             {/* checkbox of checking robot*/}
             <View style={{
                 flexDirection: 'row',
@@ -107,6 +107,35 @@ export default function StartScreenInput() {
                     paddingLeft: 5,
                     textAlign: 'left',
                 }}>I am not a robot</Text>
+            </View>
+
+            {/* Confirm and Cancel buttons */}
+            <View style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                margin: 5,
+            }}>
+                <Button
+                    title='Reset'
+                    color={'red'}
+                    onPress={() => {
+                        setName('');
+                        setEmailAddr('');
+                        setPhoneNum('');
+                        setNotRobot(false);
+                    }}
+                />
+                <Button
+                    title='Register'
+                    disabled={!notRobot}
+                    onPress={() => {
+                        if (checkName() !== null
+                        && checkEmail() !== null
+                        && checkPhone() !== null) {
+                            Alert.alert("Invalid Input", "Check the input values")
+                        }
+                    }}
+                />
             </View>
         </View>
     )
@@ -134,4 +163,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'purple',
     },
+    button: {
+        width: '25%',
+        margin: 5,
+    }
 });

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   card: {
     width: '80%',
     height: '90%',
-    backgroundColor: '#d3d3d3', // lightgrey
+    backgroundColor: '#dcdcdc', // gainsboro
     padding: 10,
     margin: 20,
     borderRadius: 10,
