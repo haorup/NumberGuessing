@@ -9,12 +9,14 @@ export default function Game({ restartGame }) {
 
 
     const [gameStatus, setGameStatus] = useState('notYet');
+    const [gameResult, setGameResult] = useState(null); // win, lose
     const [baseNumber, setBaseNumber] = useState(null);
     const [targetNumber, setTargetNumber] = useState(null);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
     const [numberGuessed, setNumberGuessed] = useState(null);
     const [hintMessage, setHintMessage] = useState('');
     const [isHintUsed, setIsHintUsed] = useState(false);
+    const [showGuessResult, setShowGuessResult] = useState(false);
     const [timeLeft, setTimeLeft] = useState(60);
     const [attempts, setAttempts] = useState(4);
 
@@ -46,8 +48,8 @@ export default function Game({ restartGame }) {
         }
         setIsHintUsed(true);
         let hint = targetNumber >= 50;
-        hint ? setHintMessage('The number is between 50 and 100') 
-        : setHintMessage('The number is between 1 and 50');
+        hint ? setHintMessage('The number is between 50 and 100')
+            : setHintMessage('The number is between 1 and 50');
     }
 
     function checkIsGuessValid() {
@@ -58,7 +60,32 @@ export default function Game({ restartGame }) {
             Alert.alert('Invalid input!', 'Please enter a number between 1 and 100');
         }
     }
-    
+
+    function handleSubmitGuess() {
+        if (isHintUsed && (Number(numberGuessed) % baseNumber !== 0)) {
+            Alert.alert('Invalid input!', 'Please enter a number that is multiply of ' + baseNumber);
+            setAttempts(attempts - 1);
+            return;
+        }
+
+        if (Number(numberGuessed) === targetNumber) { // guessed correctly
+            setGameStatus('finished');
+            setGameResult('win');
+        }
+        setAttempts(attempts - 1);
+        setShowGuessResult(true);
+    }
+
+    function handleTryAgain() {
+        if (attempts === 0 // no attempts left
+            || !isTimerRunning   // time is up
+        ) {
+            setGameStatus('finished');
+            setGameResult('lose');
+        }
+        setShowGuessResult(false);
+        setNumberGuessed(null);
+    }
 
     console.log('Base number: ' + baseNumber);
     console.log('Target number: ' + targetNumber);
@@ -93,7 +120,7 @@ export default function Game({ restartGame }) {
                         </Card>}
 
                         {/* playing game card */}
-                        {gameStatus === 'started' && <Card>
+                        {gameStatus === 'started' && !showGuessResult && <Card>
                             <View style={styles.text}>
                                 <Text>Guess a number between 1 and 100
                                     that is multiply of {baseNumber}</Text>
@@ -102,22 +129,42 @@ export default function Game({ restartGame }) {
                                 textAlign='center'
                                 value={numberGuessed}
                                 onChangeText={setNumberGuessed} />
-                                {numberGuessed && checkIsGuessValid()}
+                            {numberGuessed && checkIsGuessValid()}
                             <View>
                                 <Text>{hintMessage}</Text>
                                 <Text>Attempts left: {attempts} {`\n`}
-                                    Time left: {timeLeft}s 
+                                    Time left: {timeLeft}s
                                 </Text>
                             </View>
                             <View style={styles.buttonSection}>
-                                <Button title='Use a Hint' 
+                                <Button title='Use a Hint'
                                     disabled={isHintUsed}
                                     color={isHintUsed ? 'white' : 'blue'}
-                                    onPress={() => {handleHintPressed() }} />
+                                    onPress={() => { handleHintPressed() }} />
                                 <Button title='Submit guess'
-                                 color='blue' onPress={() => { }} />
-
+                                    color='blue' onPress={() => {handleSubmitGuess()}} />
                             </View>
+                        </Card>}
+
+                        {/* guess result card */}
+                        {gameStatus === 'started' && showGuessResult && <Card>
+                            <View style={styles.text}>
+                                <Text>Guess result</Text>
+                            </View>
+                            <View style={styles.buttonSection}>
+                                <Button title='Try Again' onPress={() => { handleTryAgain() }} />
+                                <Button title='End the Game' onPress={() => { setGameStatus('finished'); setGameResult('lose') }} />
+                            </View>
+                        </Card>}
+
+                        {/* game over card */}
+                        {gameStatus === 'finished' && <Card>
+                            <View style={styles.text}>
+                                <Text>{gameResult === 'win' ? 'Congratulations! You won!' : 'Game over! You lost!'}</Text>
+                            </View>
+                            <View style={styles.buttonSection}>
+                                <Button title='Restart' onPress={() => { handleRestart() }} />
+                            </View> 
                         </Card>}
                     </View>
                 </View>
