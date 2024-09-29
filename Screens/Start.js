@@ -95,7 +95,7 @@ export default function Start({
 
         {/* card view */}
         <View style={styles.cardView}>
-          <Card >
+          <Card flex={true}>
             {/* name input */}
             <View style={{flex: 4}}>
             <Text style={styles.text}>Name:</Text>

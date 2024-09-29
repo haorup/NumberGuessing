@@ -6,7 +6,6 @@ export default function Card({ children, flex }) {
     <View style={[styles.card, flex && { flex: 1 }]}>
         {children}
     </View>
-
   )
 }
 
