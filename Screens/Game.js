@@ -230,6 +230,7 @@ export default function Game({ restartGame }) {
                                 <Image source={require('../assets/sadSmile.jpeg')}
                                 style={styles.imageStyle}
                                 alt='loser' />
+                                <Text>{gameOverMessage}</Text>
                             </View>)}
                             <View style={styles.buttonSection}>
                                 <Button title='NewGame'
