@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import LinearGradientBackground from '../Components/LinearGradientBackground';
-import { View, Button, Text, StyleSheet, Modal, TextInput, Alert } from 'react-native';
+import {
+    View, Button, Text, StyleSheet,
+    Modal, TextInput, Alert
+} from 'react-native';
 import Card from '../Components/Card';
 import { useState } from 'react';
 
@@ -57,13 +60,15 @@ export default function Game({ restartGame }) {
             Alert.alert('Invalid input!', 'Please enter a number');
         }
         if (Number(numberGuessed) < 1 || Number(numberGuessed) > 100) {
-            Alert.alert('Invalid input!', 'Please enter a number between 1 and 100');
+            Alert.alert('Invalid input!',
+                'Please enter a number between 1 and 100');
         }
     }
 
     function handleSubmitGuess() {
         if (isHintUsed && (Number(numberGuessed) % baseNumber !== 0)) {
-            Alert.alert('Invalid input!', 'Please enter a number that is multiply of ' + baseNumber);
+            Alert.alert('Invalid input!',
+                'Please enter a number that is multiply of ' + baseNumber);
             setAttempts(attempts - 1);
             return;
         }
@@ -90,19 +95,34 @@ export default function Game({ restartGame }) {
     console.log('Base number: ' + baseNumber);
     console.log('Target number: ' + targetNumber);
     console.log('number guessed: ' + numberGuessed);
+
     useEffect(() => {
         generateBaseNumber();
     }, [])
+
+    // countdown timer
+    useEffect(() => {
+        if (timeLeft <= 0) {
+            setIsTimerRunning(false);
+            return;
+        }
+        const intervalData = setInterval(() => {
+            setTimeLeft(prevtimeLeft => prevtimeLeft - 1);
+        }, 1000);
+        return () => clearInterval(intervalData);
+    }, [timeLeft]);
 
     return (
         <Modal visible={true}
             animationType='slide'
             transparent={false}>
-            <LinearGradientBackground colors={["#f0fff0", "#adff2f", "#00ff7f"]}>
+            <LinearGradientBackground colors={["#f0fff0",
+                "#adff2f", "#00ff7f"]}>
                 <View style={styles.container}>
                     <View style={styles.screenContainer}>
                         <View style={styles.restartButtonSection}>
-                            <Button title='Restart' onPress={() => { handleRestart() }} />
+                            <Button title='Restart'
+                                onPress={() => { handleRestart() }} />
                         </View>
 
                         {/* starting game card */}
@@ -129,7 +149,7 @@ export default function Game({ restartGame }) {
                                 textAlign='center'
                                 value={numberGuessed}
                                 onChangeText={setNumberGuessed} />
-                            {numberGuessed && checkIsGuessValid()}
+                            {/* {numberGuessed && checkIsGuessValid()} */}
                             <View>
                                 <Text>{hintMessage}</Text>
                                 <Text>Attempts left: {attempts} {`\n`}
@@ -142,29 +162,43 @@ export default function Game({ restartGame }) {
                                     color={isHintUsed ? 'white' : 'blue'}
                                     onPress={() => { handleHintPressed() }} />
                                 <Button title='Submit guess'
-                                    color='blue' onPress={() => {handleSubmitGuess()}} />
+                                    color='blue' onPress={() => { handleSubmitGuess() }} />
                             </View>
                         </Card>}
 
                         {/* guess result card */}
                         {gameStatus === 'started' && showGuessResult && <Card>
                             <View style={styles.text}>
-                                <Text>Guess result</Text>
+                                <Text>You did not guess correct!{'\n'}
+                                    {numberGuessed > targetNumber
+                                        ? 'You should guess lower'
+                                        : 'You should guess higher'}
+                                </Text>
                             </View>
                             <View style={styles.buttonSection}>
-                                <Button title='Try Again' onPress={() => { handleTryAgain() }} />
-                                <Button title='End the Game' onPress={() => { setGameStatus('finished'); setGameResult('lose') }} />
+                                <Button title='Try Again'
+                                    color='blue'
+                                    onPress={() => { handleTryAgain() }} />
+                                <Button title='End the Game'
+                                    color='blue'
+                                    onPress={() => {
+                                        setGameStatus('finished');
+                                        setGameResult('lose')
+                                    }} />
                             </View>
                         </Card>}
 
                         {/* game over card */}
                         {gameStatus === 'finished' && <Card>
                             <View style={styles.text}>
-                                <Text>{gameResult === 'win' ? 'Congratulations! You won!' : 'Game over! You lost!'}</Text>
+                                <Text>{gameResult === 'win' ?
+                                    'Congratulations! You won!'
+                                    : 'Game over! You lost!'}</Text>
                             </View>
                             <View style={styles.buttonSection}>
-                                <Button title='Restart' onPress={() => { handleRestart() }} />
-                            </View> 
+                                <Button title='NewGame'
+                                    onPress={() => { }} />
+                            </View>
                         </Card>}
                     </View>
                 </View>
