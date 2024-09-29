@@ -55,18 +55,21 @@ export default function Game({ restartGame }) {
             : setHintMessage('The number is between 1 and 50');
     }
 
-    function checkIsGuessValid() {
+
+    function handleSubmitGuess() {
         if (isNaN(numberGuessed)) {
             Alert.alert('Invalid input!', 'Please enter a number');
+            setAttempts(attempts - 1);
+            return;
         }
         if (Number(numberGuessed) < 1 || Number(numberGuessed) > 100) {
             Alert.alert('Invalid input!',
                 'Please enter a number between 1 and 100');
+            setAttempts(attempts - 1);
+            return;
         }
-    }
 
-    function handleSubmitGuess() {
-        if (isHintUsed && (Number(numberGuessed) % baseNumber !== 0)) {
+        if (Number(numberGuessed) % baseNumber !== 0) {
             Alert.alert('Invalid input!',
                 'Please enter a number that is multiply of ' + baseNumber);
             setAttempts(attempts - 1);
@@ -149,7 +152,6 @@ export default function Game({ restartGame }) {
                                 textAlign='center'
                                 value={numberGuessed}
                                 onChangeText={setNumberGuessed} />
-                            {/* {numberGuessed && checkIsGuessValid()} */}
                             <View>
                                 <Text>{hintMessage}</Text>
                                 <Text>Attempts left: {attempts} {`\n`}
