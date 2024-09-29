@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import LinearGradientBackground from '../Components/LinearGradientBackground';
 import {
     View, Button, Text, StyleSheet,
-    Modal, TextInput, Alert
+    Modal, TextInput, Alert, Image
 } from 'react-native';
 import Card from '../Components/Card';
 import { useState } from 'react';
@@ -40,6 +40,7 @@ export default function Game({ restartGame }) {
     function startGame() {
         generateTargetNumber();
         setGameStatus('started');
+        setTimeLeft(60);
         setIsTimerRunning(true);
         console.log('Game started');
         console.log('Target number: ' + targetNumber);
@@ -98,13 +99,25 @@ export default function Game({ restartGame }) {
     console.log('Target number: ' + targetNumber);
     console.log('number guessed: ' + numberGuessed);
 
+
+
+    useEffect(() => {
+        if (attempts === 0) {
+            setGameStatus('finished');
+            setIsTimerRunning(false);
+        }
+        if (timeLeft === 0) {
+            setGameStatus('finished');
+        }
+    }, [attempts, timeLeft]);
+
     useEffect(() => {
         generateBaseNumber();
     }, [])
 
     // countdown timer
     useEffect(() => {
-        if (timeLeft <= 0) {
+        if (!isTimerRunning || timeLeft <= 0) {
             setIsTimerRunning(false);
             return;
         }
@@ -112,7 +125,7 @@ export default function Game({ restartGame }) {
             setTimeLeft(prevtimeLeft => prevtimeLeft - 1);
         }, 1000);
         return () => clearInterval(intervalData);
-    }, [timeLeft]);
+    }, [timeLeft, isTimerRunning]);
 
     return (
         <Modal visible={true}
@@ -192,7 +205,7 @@ export default function Game({ restartGame }) {
                         {/* game over card */}
                         {gameStatus === 'finished' && <Card>
                             {gameResult === 'win'?
-                            (<View style={styles.text}>
+                            (<View style={styles.text}> 
                                 <Text>You guessed correct! {'\n'}
                                     Attempts used: {4 - attempts} {'\n'}
                                 </Text>
@@ -201,7 +214,10 @@ export default function Game({ restartGame }) {
                                 alt='winner' />
                             </View>)
                             : (<View style={styles.text}>
-                                <Text>'You lost!'</Text>
+                                <Text>The game is over!</Text>
+                                <Image source={require('../assets/sadSmile.jpeg')}
+                                style={styles.imageStyle}
+                                alt='loser' />
                             </View>)}
                             <View style={styles.buttonSection}>
                                 <Button title='NewGame'
@@ -247,5 +263,7 @@ const styles = StyleSheet.create({
     imageStyle: {
         width: 50,
         height: 50,
+        padding: 5,
+        margin: 5,
     },
 })
