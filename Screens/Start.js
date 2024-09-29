@@ -86,7 +86,7 @@ export default function Start({
   }
 
   return (
-    <LinearGradientBackground>
+    <LinearGradientBackground colors={["#f0fff0", "#adff2f", "#00ff7f"]}>
       <View style={styles.container}>
         {/* welcome message header in top view */}
         <View style={styles.topView}>

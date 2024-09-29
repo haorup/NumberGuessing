@@ -2,10 +2,10 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
 
-export default function LinearGradientBackground({ children }) {
+export default function LinearGradientBackground({ children, colors }) {
   return (
     <LinearGradient
-        colors={["#f0fff0", "#adff2f", "#00ff7f"]}
+        colors={colors}
         style={styles.background}>
         {children}
         </LinearGradient>

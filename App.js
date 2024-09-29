@@ -8,13 +8,15 @@ export default function App() {
   const [confirmVisibility, setConfirmVisibility] = useState(false);
   const [userData, setUserData] = useState(null);
 
+  // callback function to toggle the Confirm screen
   function handleConfirm() {
-    setConfirmVisibility(true);
+    setConfirmVisibility((prevState) => !prevState);
   }
-
+  // callback function to pass the user data to the Confirm screen
   function handleUserData(data) {
     setUserData(data);
   }
+  // callback function to toggle the Confirm screen
 
   return (
     <View style={styles.container}>
