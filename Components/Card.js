@@ -6,12 +6,13 @@ export default function Card({ children }) {
     <View style={styles.card}>
         {children}
     </View>
-    
+
   )
 }
 
 const styles = StyleSheet.create({
   card: {
+    flex:1,
     width: '80%',
     height: '90%',
     backgroundColor: '#dcdcdc', // gainsboro

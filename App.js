@@ -1,9 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Start from './Screens/Start';
-import { LinearGradient } from 'expo-linear-gradient';
+import { useState } from 'react';
 
 export default function App() {
+  const [confirmVisibility, setConfirmVisibility] = useState(false);
+
+  function handleConfirm() {
+    setConfirmVisibility(true);
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
