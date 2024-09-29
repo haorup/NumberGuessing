@@ -1,9 +1,9 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
-export default function Card({ children }) {
+export default function Card({ children, flex }) {
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, flex && { flex: 1 }]}>
         {children}
     </View>
 
@@ -12,9 +12,7 @@ export default function Card({ children }) {
 
 const styles = StyleSheet.create({
   card: {
-    flex:1,
     width: '80%',
-    height: '90%',
     backgroundColor: '#dcdcdc', // gainsboro
     padding: 10,
     margin: 20,

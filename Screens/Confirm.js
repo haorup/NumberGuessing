@@ -7,7 +7,14 @@ export default function Confirm({
     ifConfirmVisible,
     userInput,
     goBackToStart,
+    gameHandler,
 }) {
+
+    function enterGame() {
+        goBackToStart();
+        gameHandler();
+    }
+
     return (
         <Modal visible={ifConfirmVisible}
             animationType='slide'
@@ -27,7 +34,7 @@ export default function Confirm({
                         </View>
                         <View style={styles.buttonSection}>
                         <Button title='Go Back' color='red' onPress={() => {goBackToStart()}} />
-                        <Button title='Continue' onPress={() => console.log('Edit')} />
+                        <Button title='Continue' onPress={() => {enterGame()}} />
                         </View>
                     </Card>
                 </View>

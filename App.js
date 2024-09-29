@@ -3,10 +3,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import Start from './Screens/Start';
 import { useState } from 'react';
 import Confirm from './Screens/Confirm';
+import Game from './Screens/Game';
 
 export default function App() {
   const [confirmVisibility, setConfirmVisibility] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [gameStage, setGameStage] = useState(0);
 
   // callback function to toggle the Confirm screen
   function handleConfirm() {
@@ -16,7 +18,10 @@ export default function App() {
   function handleUserData(data) {
     setUserData(data);
   }
-  // callback function to toggle the Confirm screen
+  // callback function to pass the game stage to the Game screen
+  function enterGameStage() {
+    setGameStage((prevStage) => prevStage+1);
+  }
 
   return (
     <View style={styles.container}>
@@ -25,7 +30,9 @@ export default function App() {
       passingUserData={handleUserData}/>
       <Confirm ifConfirmVisible={confirmVisibility}
                 userInput={userData}
-                goBackToStart={handleConfirm} />
+                goBackToStart={handleConfirm}
+                gameHandler={enterGameStage} />
+      {gameStage === 1 && <Game/>}
     </View>
   );
 }
