@@ -20,6 +20,7 @@ export default function Game({ restartGame }) {
     const [hintMessage, setHintMessage] = useState('');
     const [isHintUsed, setIsHintUsed] = useState(false);
     const [showGuessResult, setShowGuessResult] = useState(false);
+    const [gameOverMessage, setGameOverMessage] = useState('');
     const [timeLeft, setTimeLeft] = useState(60);
     const [attempts, setAttempts] = useState(4);
 
@@ -81,35 +82,41 @@ export default function Game({ restartGame }) {
             setGameResult('win');
         }
         setAttempts(attempts - 1);
+        // stop the timer when the attempts are used up
+        if (attempts === 0) {
+            setIsTimerRunning(false);
+        }
         setShowGuessResult(true);
     }
 
     function handleTryAgain() {
         if (attempts === 0 // no attempts left
-            || !isTimerRunning   // time is up
         ) {
+            setGameOverMessage('You are out of attempts!');
             setGameStatus('finished');
             setGameResult('lose');
+
         }
         setShowGuessResult(false);
         setNumberGuessed(null);
     }
 
+    function handleNewGame() {
+        setGameStatus('notYet');
+        setGameResult(null);
+        setTargetNumber(null);
+        setIsTimerRunning(false);
+        setNumberGuessed(null);
+        setHintMessage('');
+        setIsHintUsed(false);
+        setShowGuessResult(false);
+        setTimeLeft(60);
+        setAttempts(4);
+    }
+
     console.log('Base number: ' + baseNumber);
     console.log('Target number: ' + targetNumber);
     console.log('number guessed: ' + numberGuessed);
-
-
-
-    useEffect(() => {
-        if (attempts === 0) {
-            setGameStatus('finished');
-            setIsTimerRunning(false);
-        }
-        if (timeLeft === 0) {
-            setGameStatus('finished');
-        }
-    }, [attempts, timeLeft]);
 
     useEffect(() => {
         generateBaseNumber();
@@ -117,8 +124,13 @@ export default function Game({ restartGame }) {
 
     // countdown timer
     useEffect(() => {
-        if (!isTimerRunning || timeLeft <= 0) {
+        if (!isTimerRunning) {
+            return;
+        }
+        if (timeLeft <= 0) {
             setIsTimerRunning(false);
+            setGameOverMessage('Time is up!');
+            setGameStatus('finished');
             return;
         }
         const intervalData = setInterval(() => {
@@ -221,7 +233,7 @@ export default function Game({ restartGame }) {
                             </View>)}
                             <View style={styles.buttonSection}>
                                 <Button title='NewGame'
-                                    onPress={() => { }} />
+                                    onPress={() => {handleNewGame()}} />
                             </View>
                         </Card>}
                     </View>
