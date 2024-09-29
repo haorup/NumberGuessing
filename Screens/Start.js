@@ -3,10 +3,12 @@ import { View, StyleSheet, Text } from 'react-native';
 import Header from '../Components/Header';
 import Card from '../Components/Card';
 import StartScreenInput from '../Components/StartScreenInput';
+import LinearGradientBackground from '../Components/LinearGradientBackground';
 
 
 export default function Start() {
   return (
+    <LinearGradientBackground>
     <View style={styles.container}>
       {/* welcome message header in top view */}
       <View style={styles.topView}>
@@ -25,6 +27,7 @@ export default function Start() {
       <View style={styles.bottomView}>
       </View>
     </View>
+    </LinearGradientBackground>
   )
 }
 
