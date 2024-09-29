@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import LinearGradientBackground from '../Components/LinearGradientBackground';
-import { View, Button, Text, StyleSheet, Modal } from 'react-native';
+import { View, Button, Text, StyleSheet, Modal, TextInput } from 'react-native';
 import Card from '../Components/Card';
 import { useState } from 'react';
 
 
-export default function Game({restartGame}) {
+export default function Game({ restartGame }) {
+
+
 
     const [gameStatus, setGameStatus] = useState('notYet');
     const [baseNumber, setBaseNumber] = useState(null);
@@ -34,6 +36,7 @@ export default function Game({restartGame}) {
         setGameStatus('started');
         setIsTimerRunning(true);
         console.log('Game started');
+        console.log('Target number: ' + targetNumber);
     }
 
     useEffect(() => {
@@ -48,7 +51,7 @@ export default function Game({restartGame}) {
                 <View style={styles.container}>
                     <View style={styles.screenContainer}>
                         <View style={styles.restartButtonSection}>
-                            <Button title='Restart' onPress={() => { handleRestart()}} />
+                            <Button title='Restart' onPress={() => { handleRestart() }} />
                         </View>
 
                         {/* starting game card */}
@@ -61,7 +64,7 @@ export default function Game({restartGame}) {
                                 </Text>
                             </View>
                             <View style={styles.buttonSection}>
-                                <Button title='Start' onPress={() => { startGame()}} />
+                                <Button title='Start' onPress={() => { startGame() }} />
                             </View>
                         </Card>}
 
@@ -69,11 +72,15 @@ export default function Game({restartGame}) {
                         {gameStatus === 'started' && <Card>
                             <View style={styles.text}>
                                 <Text>Guess a number between 1 and 100
-                                that is multiply of {baseNumber}</Text>
+                                    that is multiply of {baseNumber}</Text>
                             </View>
+                            <TextInput style={styles.input}
+                                textAlign='center'
+                                value={numberGuessed}
+                                onChangeText={setNumberGuessed} />
                             <View style={styles.buttonSection}>
-                                <Button title='Use a Hint' onPress={() => {}} />
-                                <Button title='Submit guess' onPress={() => {}} />
+                                <Button title='Use a Hint' onPress={() => { }} />
+                                <Button title='Submit guess' onPress={() => { }} />
 
                             </View>
                         </Card>}
@@ -95,7 +102,6 @@ const styles = StyleSheet.create({
         margin: 5,
     },
     text: {
-
         padding: 5,
         justifyContent: 'center',
         alignItems: 'center',
@@ -103,4 +109,15 @@ const styles = StyleSheet.create({
     buttonSection: {
         margin: 5,
     },
+    input: {
+        alignSelf: 'center',
+        width: 50,
+        borderColor: 'black',
+        padding: 5,
+        margin: 5,
+        borderBottomWidth: 2,
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: 'purple',
+    }
 })
