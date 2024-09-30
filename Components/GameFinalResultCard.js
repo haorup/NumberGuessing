@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import Card from './Card';
 import SharedButton from './SharedButton';
+import { Colorhelper } from './Colorhelper';
 
 
 export default function GameFinalResultCard({
@@ -27,7 +28,7 @@ export default function GameFinalResultCard({
                     <Text style={styles.text}>{gameOverMessage}</Text>
                 </View>)}
             <SharedButton passedTitle='New Game'
-                passedColor={'blue'} passedPressFunc={handleNewGame} />
+                passedColor={Colorhelper.blue} passedPressFunc={handleNewGame} />
         </Card>
     )
 }
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     },
     text: {
         textAlign: 'center',
-        color: 'purple',
+        color: Colorhelper.purple,
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 5,

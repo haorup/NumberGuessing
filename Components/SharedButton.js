@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native';
 
 export default function SharedButton(
     { passedTitle, passedPressFunc, passedColor }) {

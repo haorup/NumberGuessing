@@ -7,6 +7,7 @@ import LinearGradientBackground from '../Components/LinearGradientBackground';
 import { useState } from 'react';
 import StartCheckbox from '../Components/StartCheckbox';
 import SharedButton from '../Components/SharedButton';
+import { Colorhelper } from '../Components/Colorhelper';
 
 export default function Start({
   showConfirm,
@@ -87,7 +88,8 @@ export default function Start({
   }
 
   return (
-    <LinearGradientBackground colors={["#f0fff0", "#adff2f", "#00ff7f"]}>
+    <LinearGradientBackground colors={[Colorhelper.honeydew,
+      Colorhelper.greenYellow, Colorhelper.springGreen]}>
       <View style={styles.container}>
         {/* welcome message header in top view */}
         <View style={styles.topView}>
@@ -141,7 +143,7 @@ export default function Start({
               <SharedButton
                 passedTitle='Reset'
                 passedPressFunc={reset}
-                passedColor='red'/>
+                passedColor={Colorhelper.red}/>
               <View style={styles.buttonSection}>
                 <Button
                   title='Register'
@@ -183,14 +185,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: 'purple',
+    color: Colorhelper.purple,
     fontSize: 20,
     padding: 5,
     textAlign: 'left',
     fontWeight: 'bold',
   },
   reminder: {
-    color: 'black',
+    color: Colorhelper.black,
     fontSize: 15,
     padding: 5,
     textAlign: 'left',

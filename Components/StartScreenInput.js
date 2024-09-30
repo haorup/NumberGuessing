@@ -1,13 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, Text, TextInput, } from 'react-native';
-import { useState } from 'react';
+import { StyleSheet, TextInput, } from 'react-native';
+import { Colorhelper } from './Colorhelper';
 
 export default function StartScreenInput({
     inputInfo,
     inputInfoType,
     passingInfo,
 }) {
-    const [isFocus, setIsFocus] = useState(false);
 
     function updateState(value) {
         passingInfo(inputInfoType, value);
@@ -17,7 +16,6 @@ export default function StartScreenInput({
                 style={styles.input}
                 onChangeText={updateState}
                 value={inputInfo}
-                onFocus={() => setIsFocus(true)}
                 textAlign='center'
             />
     )
@@ -27,12 +25,12 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         width: '90%',
-        borderColor: 'purple',
+        borderColor: Colorhelper.purple,
         padding: 5,
         margin: 5,
         borderBottomWidth: 2,
         fontSize: 20,
         fontWeight: 'bold',
-        color: 'purple',
+        color: Colorhelper.purple,
     }
 });

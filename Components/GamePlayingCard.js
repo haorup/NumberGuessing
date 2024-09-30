@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import Card from './Card'
 import SharedButton from './SharedButton';
+import { Colorhelper } from './Colorhelper';
 
 export default function GamePlayingCard({
     baseNumber, numberGuessed, setNumberGuessed,
@@ -26,7 +27,7 @@ export default function GamePlayingCard({
             <View style={styles.buttonSection}>
                 <Button title='Use a Hint'
                     disabled={isHintUsed}
-                    color={isHintUsed ? 'white' : 'blue'}
+                    color={isHintUsed ? Colorhelper.white : Colorhelper.blue}
                     onPress={() => { handleHintPressed() }} />
                 <SharedButton passedTitle='Submit Guess'
                     passedPressFunc={handleSubmitGuess} />
@@ -38,20 +39,20 @@ export default function GamePlayingCard({
 const styles = StyleSheet.create({
     text: {
         textAlign: 'center',
-        color: 'purple',
+        color: Colorhelper.purple,
         fontSize: 20,
         fontWeight: 'bold',
         padding: 5,
     },
     reminderText: {
         textAlign: 'center',
-        color: 'red',
+        color: Colorhelper.red,
         fontSize: 15,
         padding: 5,
     },
     hintText: {
         textAlign: 'center',
-        color: 'black',
+        color: Colorhelper.black,
         fontSize: 15,
         fontWeight: 'bold',
         padding: 5,
@@ -60,13 +61,13 @@ const styles = StyleSheet.create({
     input: {
         alignSelf: 'center',
         width: 50,
-        borderColor: 'black',
+        borderColor: Colorhelper.black,
         padding: 5,
         margin: 5,
         borderBottomWidth: 2,
         fontSize: 20,
         fontWeight: 'bold',
-        color: 'purple',
+        color: Colorhelper.purple,
     },
     buttonSection: {
         padding: 10,

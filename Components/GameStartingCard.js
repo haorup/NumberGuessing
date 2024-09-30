@@ -2,6 +2,7 @@ import React from 'react';
 import Card from './Card';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import SharedButton from './SharedButton';
+import { Colorhelper } from './Colorhelper';
 
 export default function GameStartingCard({
     passedBaseNumber, passedStartGame }) {
@@ -22,7 +23,7 @@ export default function GameStartingCard({
 const styles = StyleSheet.create({
     text: {
         textAlign: 'center',
-        color: 'purple',
+        color: Colorhelper.purple,
         fontSize: 20,
         fontWeight: 'bold',
         padding: 5,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Colorhelper } from './Colorhelper';
 
 export default function Header() {
     return (
@@ -11,7 +12,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
     text: {
-        color: 'purple',
+        color: Colorhelper.purple,
         fontSize: 20,
         fontWeight: 'bold',
         padding: 5,

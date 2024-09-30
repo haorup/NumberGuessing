@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, style } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Checkbox } from 'expo-checkbox';
+import { Colorhelper } from './Colorhelper';
 
 export default function StartCheckbox({
   notRobotInfo,
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     height: 15,
   },
   text: {
-    color: 'purple',
+    color: Colorhelper.purple,
     fontSize: 15,
     paddingLeft: 5,
     textAlign: 'left',

@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import LinearGradientBackground from '../Components/LinearGradientBackground';
 import {
-    View, Button, Text, StyleSheet,
-    Modal, TextInput, Alert, Image
+    View, StyleSheet,
+    Modal, Alert
 } from 'react-native';
-import Card from '../Components/Card';
 import { useState } from 'react';
 import GameStartingCard from '../Components/GameStartingCard';
 import GamePlayingCard from '../Components/GamePlayingCard';
 import GameGuessResultCard from '../Components/GameGuessResultCard';
 import GameFinalResultCard from '../Components/GameFinalResultCard';
 import SharedButton from '../Components/SharedButton';
+import { Colorhelper } from '../Components/Colorhelper';
 
 
 export default function Game({ restartGame }) {
@@ -159,8 +159,8 @@ export default function Game({ restartGame }) {
         <Modal visible={true}
             animationType='slide'
             transparent={false}>
-            <LinearGradientBackground colors={["#f0fff0",
-                "#adff2f", "#00ff7f"]}>
+            <LinearGradientBackground colors={[Colorhelper.honeydew,
+            Colorhelper.greenYellow, Colorhelper.springGreen]}>
                 <View style={styles.container}>
                     <View style={styles.screenContainer}>
                         <View style={{ alignSelf: 'flex-end' }}>

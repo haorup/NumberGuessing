@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import Card from './Card';
 import SharedButton from './SharedButton';
+import { Colorhelper } from './Colorhelper';
 
 
 export default function GameGuessResultCard({
@@ -16,9 +17,9 @@ export default function GameGuessResultCard({
                     : 'You should guess higher'}
             </Text>
             <SharedButton passedTitle='Try Again'
-                passedColor={'blue'} passedPressFunc={handleTryAgain} />
+                passedColor={Colorhelper.blue} passedPressFunc={handleTryAgain} />
             <SharedButton passedTitle='End Game'
-                passedColor={'blue'} passedPressFunc={handleEndGame} />
+                passedColor={Colorhelper.blue} passedPressFunc={handleEndGame} />
            
         </Card>
     )
@@ -27,7 +28,7 @@ export default function GameGuessResultCard({
 const styles = StyleSheet.create({
     text: {
         textAlign: 'center',
-        color: 'purple',
+        color: Colorhelper.purple,
         fontSize: 20,
         fontWeight: 'bold',
         padding: 5,
