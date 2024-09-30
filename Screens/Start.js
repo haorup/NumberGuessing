@@ -191,6 +191,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     padding: 5,
     textAlign: 'left',
+    fontWeight: 'bold',
   },
   reminder: {
     color: 'black',
