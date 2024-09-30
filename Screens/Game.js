@@ -9,6 +9,7 @@ import { useState } from 'react';
 import GameStartingCard from '../Components/GameStartingCard';
 import GamePlayingCard from '../Components/GamePlayingCard';
 import GameGuessResultCard from '../Components/GameGuessResultCard';
+import GameFinalResultCard from '../Components/GameFinalResultCard';
 
 
 export default function Game({ restartGame }) {
@@ -57,7 +58,7 @@ export default function Game({ restartGame }) {
         hint ? setHintMessage('The number is between 50 and 100')
             : setHintMessage('The number is between 1 and 50');
     }
-
+    
     function handleSubmitGuess() {
         // stop the timer when the attempts are used up
         if (attempts === 0) {
@@ -194,28 +195,12 @@ export default function Game({ restartGame }) {
                             handleEndGame={handleEndGame} />}
 
                         {/* game over card */}
-                        {gameStatus === 'finished' && <Card>
-                            {gameResult === 'win' ?
-                                (<View style={styles.text}>
-                                    <Text>You guessed correct! {'\n'}
-                                        Attempts used: {4 - attempts} {'\n'}
-                                    </Text>
-                                    <Image source={{ uri: `https://picsum.photos/id/${targetNumber}/100/100` }}
-                                        style={styles.imageStyle}
-                                        alt='winner' />
-                                </View>)
-                                : (<View style={styles.text}>
-                                    <Text>The game is over!</Text>
-                                    <Image source={require('../assets/sadSmile.jpeg')}
-                                        style={styles.imageStyle}
-                                        alt='loser' />
-                                    <Text>{gameOverMessage}</Text>
-                                </View>)}
-                            <View style={styles.buttonSection}>
-                                <Button title='NewGame'
-                                    onPress={() => { handleNewGame() }} />
-                            </View>
-                        </Card>}
+                        {gameStatus === 'finished' 
+                        && <GameFinalResultCard gameResult={gameResult}
+                            attempts={attempts}
+                            targetNumber={targetNumber}
+                            handleNewGame={handleNewGame}
+                            gameOverMessage={gameOverMessage} />}
                     </View>
                 </View>
             </LinearGradientBackground>
@@ -231,21 +216,6 @@ const styles = StyleSheet.create({
 
     restartButtonSection: {
         alignSelf: 'flex-end',
-        margin: 5,
-    },
-    text: {
-        padding: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonSection: {
-        margin: 5,
-    },
-    
-    imageStyle: {
-        width: 50,
-        height: 50,
-        padding: 5,
         margin: 5,
     },
 })

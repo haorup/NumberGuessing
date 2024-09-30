@@ -11,7 +11,7 @@ export default function Card({ children, flex }) {
 
 const styles = StyleSheet.create({
   card: {
-    width: '80%',
+    width: '90%',
     backgroundColor: '#dcdcdc', // gainsboro
     padding: 10,
     margin: 20,
