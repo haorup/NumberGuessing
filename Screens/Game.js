@@ -8,6 +8,7 @@ import Card from '../Components/Card';
 import { useState } from 'react';
 import GameStartingCard from '../Components/GameStartingCard';
 import GamePlayingCard from '../Components/GamePlayingCard';
+import GameGuessResultCard from '../Components/GameGuessResultCard';
 
 
 export default function Game({ restartGame }) {
@@ -185,26 +186,12 @@ export default function Game({ restartGame }) {
                             handleSubmitGuess={handleSubmitGuess} />}
 
                         {/* guess result card */}
-                        {gameStatus === 'started' && showGuessResult &&
-                            <Card>
-                                <View style={styles.text}>
-                                    <Text>You did not guess correct!{'\n'}
-                                        {numberGuessed > targetNumber
-                                            ? 'You should guess lower'
-                                            : 'You should guess higher'}
-                                    </Text>
-                                </View>
-                                <View style={styles.buttonSection}>
-                                    <Button title='Try Again'
-                                        color='blue'
-                                        onPress={() => { handleTryAgain() }} />
-                                    <Button title='End the Game'
-                                        color='blue'
-                                        onPress={() => {
-                                            handleEndGame()
-                                        }} />
-                                </View>
-                            </Card>}
+                        {gameStatus === 'started' 
+                        && showGuessResult 
+                        && <GameGuessResultCard numberGuessed={numberGuessed}
+                            targetNumber={targetNumber}
+                            handleTryAgain={handleTryAgain}
+                            handleEndGame={handleEndGame} />}
 
                         {/* game over card */}
                         {gameStatus === 'finished' && <Card>
