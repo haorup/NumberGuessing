@@ -11,7 +11,7 @@ export default function Start({
   showConfirm,
   passingUserData,
 }) {
-  const [userInfo, setUserInfo] = useState({'name': '', 'email': '', 'phone': ''});
+  const [userInfo, setUserInfo] = useState({ 'name': '', 'email': '', 'phone': '' });
   const [notRobot, setNotRobot] = useState(false);
   const nameError = 'Please enter a valid name';
   const emailError = 'Please enter a valid email address';
@@ -55,7 +55,7 @@ export default function Start({
   }
 
   function reset() {
-    setUserInfo({'name': '', 'email': '', 'phone': ''});
+    setUserInfo({ 'name': '', 'email': '', 'phone': '' });
     setNotRobot(false);
   }
 
@@ -92,43 +92,42 @@ export default function Start({
         <View style={styles.topView}>
           <Header />
         </View>
-
         {/* card view */}
         <View style={styles.cardView}>
           <Card flex={true}>
             {/* name input */}
-            <View style={{flex: 4}}>
-            <Text style={styles.text}>Name:</Text>
-            <StartScreenInput
-            inputInfo={userInfo.name}
-            inputInfoType='name'
-            passingInfo={handleInputData}
-            />
-            <Text style={styles.reminder}>{checkName()}</Text>
+            <View style={{ flex: 4 }}>
+              <Text style={styles.text}>Name:</Text>
+              <StartScreenInput
+                inputInfo={userInfo.name}
+                inputInfoType='name'
+                passingInfo={handleInputData}
+              />
+              <Text style={styles.reminder}>{checkName()}</Text>
 
-            {/* email input */}
-            <Text style={styles.text}>Email address:</Text>
-            <StartScreenInput
-            inputInfo={userInfo.email}
-            inputInfoType='email'
-            passingInfo={handleInputData}
-            />
-            <Text style={styles.reminder}>{checkEmail()}</Text>
+              {/* email input */}
+              <Text style={styles.text}>Email address:</Text>
+              <StartScreenInput
+                inputInfo={userInfo.email}
+                inputInfoType='email'
+                passingInfo={handleInputData}
+              />
+              <Text style={styles.reminder}>{checkEmail()}</Text>
 
-            {/* phone number input */}
-            <Text style={styles.text}>Phone number:</Text>
-            <StartScreenInput
-            inputInfo={userInfo.phone}
-            inputInfoType='phone'
-            passingInfo={handleInputData}
-            />
-            <Text style={styles.reminder}>{checkPhone()}</Text>
+              {/* phone number input */}
+              <Text style={styles.text}>Phone number:</Text>
+              <StartScreenInput
+                inputInfo={userInfo.phone}
+                inputInfoType='phone'
+                passingInfo={handleInputData}
+              />
+              <Text style={styles.reminder}>{checkPhone()}</Text>
             </View>
 
             {/* checkbox */}
             <StartCheckbox
-            notRobotInfo={notRobot}
-            handleCheckbox={handleCheckbox}
+              notRobotInfo={notRobot}
+              handleCheckbox={handleCheckbox}
             />
 
             {/* Confirm and Cancel buttons */}
@@ -139,25 +138,24 @@ export default function Start({
               margin: 5,
             }}>
               <View style={styles.buttonSection}>
-              <Button
-                title='Reset'
-                color={'red'}
-                onPress={() => {
-                  reset();
-                }}
-              />
+                <Button
+                  title='Reset'
+                  color={'red'}
+                  onPress={() => {
+                    reset();
+                  }}
+                />
               </View>
               <View style={styles.buttonSection}>
-              <Button
-                title='Register'
-                disabled={!notRobot}
-                onPress={() => { register() }}
-              />
+                <Button
+                  title='Register'
+                  disabled={!notRobot}
+                  onPress={() => { register() }}
+                />
               </View>
             </View>
           </Card>
         </View>
-
         {/* bottom view are set empty */}
         <View style={styles.bottomView}>
         </View>
@@ -174,8 +172,8 @@ const styles = StyleSheet.create({
   },
   topView: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   cardView: {
     flex: 5,
@@ -184,7 +182,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   bottomView: {
-    flex: 1.5,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -193,7 +191,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     padding: 5,
     textAlign: 'left',
-},
+  },
   reminder: {
     color: 'black',
     fontSize: 15,
