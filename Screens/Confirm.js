@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, View, Text, StyleSheet, Button } from 'react-native';
 import LinearGradientBackground from '../Components/LinearGradientBackground';
 import Card from '../Components/Card';
+import SharedButton from '../Components/SharedButton';
 
 export default function Confirm({
     ifConfirmVisible,
@@ -33,9 +34,11 @@ export default function Confirm({
                                     go back and edit them.
                                 </Text>
                             </View>
-                            <View style={styles.buttonSection}>
-                                <Button title='Go Back' color='red' onPress={() => { goBackToStart() }} />
-                                <Button title='Continue' onPress={() => { enterGame() }} />
+                            <View style={styles.buttonStyle}>
+                                <SharedButton passedTitle='Go Back' 
+                                passedColor='red' passedPressFunc={goBackToStart} />
+                                <SharedButton passedTitle='Continue'
+                                passedPressFunc={enterGame} />
                             </View>
                         </Card>
                     </View>
@@ -56,11 +59,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    buttonSection: {
-        flex: 1,
-        margin: 5,
+    buttonStyle: {
+        flex: 1.5,
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
     },
     text: {
         color: 'purple',

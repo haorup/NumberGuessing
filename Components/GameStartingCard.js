@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './Card';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import SharedButton from './SharedButton';
 
 export default function GameStartingCard({
     passedBaseNumber, passedStartGame }) {
@@ -12,9 +13,8 @@ export default function GameStartingCard({
                 Time limit: 60 seconds {`\n`}
                 Maximum attempts: 4 {`\n`}
             </Text>
-            <View style={styles.buttonSection}>
-                <Button title='Start' onPress={() => { passedStartGame() }} />
-            </View>
+            <SharedButton passedTitle={'Start Game'}
+                passedPressFunc={passedStartGame} />
         </Card>
     )
 }
@@ -28,8 +28,4 @@ const styles = StyleSheet.create({
         padding: 5,
     },
 
-    buttonSection: {
-        padding: 10,
-        alignItems: 'center'
-    }
 });

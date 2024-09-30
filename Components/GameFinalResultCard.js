@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import Card from './Card';
+import SharedButton from './SharedButton';
 
 
 export default function GameFinalResultCard({
@@ -25,10 +26,8 @@ export default function GameFinalResultCard({
                         alt='loser' />
                     <Text style={styles.text}>{gameOverMessage}</Text>
                 </View>)}
-            <View style={styles.buttonSection}>
-                <Button title='NewGame'
-                    onPress={() => { handleNewGame() }} />
-            </View>
+            <SharedButton passedTitle='New Game'
+                passedColor={'blue'} passedPressFunc={handleNewGame} />
         </Card>
     )
 }

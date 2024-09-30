@@ -6,6 +6,7 @@ import StartScreenInput from '../Components/StartScreenInput';
 import LinearGradientBackground from '../Components/LinearGradientBackground';
 import { useState } from 'react';
 import StartCheckbox from '../Components/StartCheckbox';
+import SharedButton from '../Components/SharedButton';
 
 export default function Start({
   showConfirm,
@@ -137,15 +138,10 @@ export default function Start({
               justifyContent: 'center',
               margin: 5,
             }}>
-              <View style={styles.buttonSection}>
-                <Button
-                  title='Reset'
-                  color={'red'}
-                  onPress={() => {
-                    reset();
-                  }}
-                />
-              </View>
+              <SharedButton
+                passedTitle='Reset'
+                passedPressFunc={reset}
+                passedColor='red'/>
               <View style={styles.buttonSection}>
                 <Button
                   title='Register'
@@ -153,7 +149,7 @@ export default function Start({
                   onPress={() => { register() }}
                 />
               </View>
-            </View>
+              </View>
           </Card>
         </View>
         {/* bottom view are set empty */}
@@ -201,7 +197,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   buttonSection: {
-    flex: 1,
     margin: 5,
+    padding: 5,
   }
 });

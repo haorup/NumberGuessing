@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import Card from './Card'
+import SharedButton from './SharedButton';
 
 export default function GamePlayingCard({
     baseNumber, numberGuessed, setNumberGuessed,
@@ -27,8 +28,8 @@ export default function GamePlayingCard({
                     disabled={isHintUsed}
                     color={isHintUsed ? 'white' : 'blue'}
                     onPress={() => { handleHintPressed() }} />
-                <Button title='Submit guess'
-                    color='blue' onPress={() => { handleSubmitGuess() }} />
+                <SharedButton passedTitle='Submit Guess'
+                    passedPressFunc={handleSubmitGuess} />
             </View>
         </Card>
     )

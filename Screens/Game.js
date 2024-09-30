@@ -10,6 +10,7 @@ import GameStartingCard from '../Components/GameStartingCard';
 import GamePlayingCard from '../Components/GamePlayingCard';
 import GameGuessResultCard from '../Components/GameGuessResultCard';
 import GameFinalResultCard from '../Components/GameFinalResultCard';
+import SharedButton from '../Components/SharedButton';
 
 
 export default function Game({ restartGame }) {
@@ -58,8 +59,11 @@ export default function Game({ restartGame }) {
         hint ? setHintMessage('The number is between 50 and 100')
             : setHintMessage('The number is between 1 and 50');
     }
-    
+
     function handleSubmitGuess() {
+        console.log('Base number: ' + baseNumber);
+        console.log('Target number: ' + targetNumber);
+        console.log('number guessed: ' + numberGuessed);
         // stop the timer when the attempts are used up
         if (attempts === 0) {
             setIsTimerRunning(false);
@@ -124,10 +128,6 @@ export default function Game({ restartGame }) {
         setAttempts(4);
     }
 
-    console.log('Base number: ' + baseNumber);
-    console.log('Target number: ' + targetNumber);
-    console.log('number guessed: ' + numberGuessed);
-
     useEffect(() => {
         generateBaseNumber();
     }, [])
@@ -163,9 +163,9 @@ export default function Game({ restartGame }) {
                 "#adff2f", "#00ff7f"]}>
                 <View style={styles.container}>
                     <View style={styles.screenContainer}>
-                        <View style={styles.restartButtonSection}>
-                            <Button title='Restart'
-                                onPress={() => { handleRestart() }} />
+                        <View style={{ alignSelf: 'flex-end' }}>
+                            <SharedButton passedTitle='Restart'
+                                passedPressFunc={handleRestart} />
                         </View>
 
                         {/* starting game card */}
@@ -174,33 +174,33 @@ export default function Game({ restartGame }) {
                                 passedStartGame={startGame} />}
 
                         {/* playing game card */}
-                        {gameStatus === 'started' 
-                        && !showGuessResult 
-                        && <GamePlayingCard baseNumber={baseNumber}
-                            numberGuessed={numberGuessed}
-                            setNumberGuessed={setNumberGuessed}
-                            hintMessage={hintMessage}
-                            attempts={attempts}
-                            timeLeft={timeLeft}
-                            handleHintPressed={handleHintPressed}
-                            isHintUsed={isHintUsed}
-                            handleSubmitGuess={handleSubmitGuess} />}
+                        {gameStatus === 'started'
+                            && !showGuessResult
+                            && <GamePlayingCard baseNumber={baseNumber}
+                                numberGuessed={numberGuessed}
+                                setNumberGuessed={setNumberGuessed}
+                                hintMessage={hintMessage}
+                                attempts={attempts}
+                                timeLeft={timeLeft}
+                                handleHintPressed={handleHintPressed}
+                                isHintUsed={isHintUsed}
+                                handleSubmitGuess={handleSubmitGuess} />}
 
                         {/* guess result card */}
-                        {gameStatus === 'started' 
-                        && showGuessResult 
-                        && <GameGuessResultCard numberGuessed={numberGuessed}
-                            targetNumber={targetNumber}
-                            handleTryAgain={handleTryAgain}
-                            handleEndGame={handleEndGame} />}
+                        {gameStatus === 'started'
+                            && showGuessResult
+                            && <GameGuessResultCard numberGuessed={numberGuessed}
+                                targetNumber={targetNumber}
+                                handleTryAgain={handleTryAgain}
+                                handleEndGame={handleEndGame} />}
 
                         {/* game over card */}
-                        {gameStatus === 'finished' 
-                        && <GameFinalResultCard gameResult={gameResult}
-                            attempts={attempts}
-                            targetNumber={targetNumber}
-                            handleNewGame={handleNewGame}
-                            gameOverMessage={gameOverMessage} />}
+                        {gameStatus === 'finished'
+                            && <GameFinalResultCard gameResult={gameResult}
+                                attempts={attempts}
+                                targetNumber={targetNumber}
+                                handleNewGame={handleNewGame}
+                                gameOverMessage={gameOverMessage} />}
                     </View>
                 </View>
             </LinearGradientBackground>
