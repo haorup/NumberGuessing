@@ -6,12 +6,11 @@ import {
 } from 'react-native';
 import Card from '../Components/Card';
 import { useState } from 'react';
+import GameStartingCard from '../Components/GameStartingCard';
 
 
 export default function Game({ restartGame }) {
-
-
-    const [gameStatus, setGameStatus] = useState('notYet');
+    const [gameStatus, setGameStatus] = useState('notYet'); // notYet, started, finished
     const [gameResult, setGameResult] = useState(null); // win, lose
     const [baseNumber, setBaseNumber] = useState(null);
     const [targetNumber, setTargetNumber] = useState(null);
@@ -166,18 +165,9 @@ export default function Game({ restartGame }) {
                         </View>
 
                         {/* starting game card */}
-                        {gameStatus === 'notYet' && <Card>
-                            <View style={styles.text}>
-                                <Text>Guess a number between 1 and 100
-                                    that is multiply of {baseNumber} {`\n`}
-                                    Time limit: 60 seconds {`\n`}
-                                    Maximum attempts: 4 {`\n`}
-                                </Text>
-                            </View>
-                            <View style={styles.buttonSection}>
-                                <Button title='Start' onPress={() => { startGame() }} />
-                            </View>
-                        </Card>}
+                        {gameStatus === 'notYet'
+                            && <GameStartingCard passedBaseNumber={baseNumber}
+                                passedStartGame={startGame} />}
 
                         {/* playing game card */}
                         {gameStatus === 'started' && !showGuessResult && <Card>
@@ -206,25 +196,26 @@ export default function Game({ restartGame }) {
                         </Card>}
 
                         {/* guess result card */}
-                        {gameStatus === 'started' && showGuessResult && <Card>
-                            <View style={styles.text}>
-                                <Text>You did not guess correct!{'\n'}
-                                    {numberGuessed > targetNumber
-                                        ? 'You should guess lower'
-                                        : 'You should guess higher'}
-                                </Text>
-                            </View>
-                            <View style={styles.buttonSection}>
-                                <Button title='Try Again'
-                                    color='blue'
-                                    onPress={() => { handleTryAgain() }} />
-                                <Button title='End the Game'
-                                    color='blue'
-                                    onPress={() => {
-                                        handleEndGame()
-                                    }} />
-                            </View>
-                        </Card>}
+                        {gameStatus === 'started' && showGuessResult &&
+                            <Card>
+                                <View style={styles.text}>
+                                    <Text>You did not guess correct!{'\n'}
+                                        {numberGuessed > targetNumber
+                                            ? 'You should guess lower'
+                                            : 'You should guess higher'}
+                                    </Text>
+                                </View>
+                                <View style={styles.buttonSection}>
+                                    <Button title='Try Again'
+                                        color='blue'
+                                        onPress={() => { handleTryAgain() }} />
+                                    <Button title='End the Game'
+                                        color='blue'
+                                        onPress={() => {
+                                            handleEndGame()
+                                        }} />
+                                </View>
+                            </Card>}
 
                         {/* game over card */}
                         {gameStatus === 'finished' && <Card>
