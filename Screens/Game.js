@@ -7,6 +7,7 @@ import {
 import Card from '../Components/Card';
 import { useState } from 'react';
 import GameStartingCard from '../Components/GameStartingCard';
+import GamePlayingCard from '../Components/GamePlayingCard';
 
 
 export default function Game({ restartGame }) {
@@ -82,6 +83,7 @@ export default function Game({ restartGame }) {
         }
         // check if the guess is correct
         if (Number(numberGuessed) === targetNumber) {
+            setIsTimerRunning(false);
             setGameStatus('finished');
             setGameResult('win');
         }
@@ -170,30 +172,17 @@ export default function Game({ restartGame }) {
                                 passedStartGame={startGame} />}
 
                         {/* playing game card */}
-                        {gameStatus === 'started' && !showGuessResult && <Card>
-                            <View style={styles.text}>
-                                <Text>Guess a number between 1 and 100
-                                    that is multiply of {baseNumber}</Text>
-                            </View>
-                            <TextInput style={styles.input}
-                                textAlign='center'
-                                value={numberGuessed}
-                                onChangeText={setNumberGuessed} />
-                            <View>
-                                <Text>{hintMessage}</Text>
-                                <Text>Attempts left: {attempts} {`\n`}
-                                    Time left: {timeLeft}s
-                                </Text>
-                            </View>
-                            <View style={styles.buttonSection}>
-                                <Button title='Use a Hint'
-                                    disabled={isHintUsed}
-                                    color={isHintUsed ? 'white' : 'blue'}
-                                    onPress={() => { handleHintPressed() }} />
-                                <Button title='Submit guess'
-                                    color='blue' onPress={() => { handleSubmitGuess() }} />
-                            </View>
-                        </Card>}
+                        {gameStatus === 'started' 
+                        && !showGuessResult 
+                        && <GamePlayingCard baseNumber={baseNumber}
+                            numberGuessed={numberGuessed}
+                            setNumberGuessed={setNumberGuessed}
+                            hintMessage={hintMessage}
+                            attempts={attempts}
+                            timeLeft={timeLeft}
+                            handleHintPressed={handleHintPressed}
+                            isHintUsed={isHintUsed}
+                            handleSubmitGuess={handleSubmitGuess} />}
 
                         {/* guess result card */}
                         {gameStatus === 'started' && showGuessResult &&
@@ -265,17 +254,7 @@ const styles = StyleSheet.create({
     buttonSection: {
         margin: 5,
     },
-    input: {
-        alignSelf: 'center',
-        width: 50,
-        borderColor: 'black',
-        padding: 5,
-        margin: 5,
-        borderBottomWidth: 2,
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: 'purple',
-    },
+    
     imageStyle: {
         width: 50,
         height: 50,
